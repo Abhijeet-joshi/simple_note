@@ -1,7 +1,7 @@
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:simple_note/cubit/state_cubit.dart';
+import 'package:simple_note/cubit/states/state_cubit.dart';
 
-import '../database/MyDbHelper.dart';
+import '../../database/MyDbHelper.dart';
 
 class ListCubit extends Cubit<StateCubit>{
   ListCubit() : super(StateCubit(arrData: []));

@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:simple_note/cubit/ListCubit.dart';
+import 'package:simple_note/cubit/list/ListCubit.dart';
 
 import 'appScreens/HomeScreen.dart';
 

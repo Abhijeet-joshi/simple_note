@@ -2,8 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:simple_note/appScreens/AddScreen.dart';
 import 'package:simple_note/appScreens/EditScreen.dart';
-import 'package:simple_note/cubit/ListCubit.dart';
-import 'package:simple_note/cubit/state_cubit.dart';
+import 'package:simple_note/cubit/list/ListCubit.dart';
+import 'package:simple_note/cubit/states/state_cubit.dart';
 
 class HomeScreen extends StatefulWidget {
   @override
@@ -36,25 +36,32 @@ class _HomeScreenState extends State<HomeScreen> {
               onTap: (){
                 Navigator.push(context, MaterialPageRoute(builder: (builder) => AddScreen()));
               },
-              child: CircleAvatar(
-                  radius: 21,
-                  backgroundColor: Colors.blue.shade300,
-                  child: const Icon(
-                    Icons.add,
-                    color: Colors.white,
-                  )),
+              child: const Icon(
+                Icons.add,
+                size: 35,
+                color: Colors.white,
+              ),
             ),
+            SizedBox(width: 10,),
           ],
         ),
       ),
       body: BlocBuilder<ListCubit, StateCubit>(builder: (ctx, state){
         notes = state.arrData;
-        return ListView.builder(
-          itemCount: notes.length,
-          itemBuilder: (ctx, index){
-            var currNote = state.arrData[index];
-            return noteCard(NOTE_ID: "${currNote["note_id"]}" ,NOTE_TITLE: "${currNote["note_title"]}", NOTE_DESCRIPTION: "${currNote["note_desc"]}");
-        },);
+        return Column(
+          children: [
+            const SizedBox(height: 10,),
+            Text("${notes.length.toString()} ${getCountWord(notes.length)} added", style: TextStyle(color: Colors.grey.shade600),),
+            Expanded(
+              child: ListView.builder(
+                itemCount: notes.length,
+                itemBuilder: (ctx, index){
+                  var currNote = state.arrData[index];
+                  return noteCard(NOTE_ID: "${currNote["note_id"]}" ,NOTE_TITLE: "${currNote["note_title"]}", NOTE_DESCRIPTION: "${currNote["note_desc"]}");
+              },),
+            ),
+          ],
+        );
       }),
       );
   }
@@ -82,7 +89,7 @@ class _HomeScreenState extends State<HomeScreen> {
                 Expanded(
                   flex: 7,
                   child: Center(
-                    child: Text(
+                    child: SelectableText(
                       NOTE_TITLE,
                       style: TextStyle(fontSize: 21, fontWeight: FontWeight.bold),
                     ),
@@ -100,7 +107,35 @@ class _HomeScreenState extends State<HomeScreen> {
                     flex: 1,
                     child: InkWell(
                       onTap: (){
-                        BlocProvider.of<ListCubit>(context).deleteDataCubit(id: NOTE_ID);
+
+                        // set up the buttons
+                        Widget cancelButton = TextButton(
+                          child: const Text("Cancel"),
+                          onPressed: () {
+                            //cancel dialog
+                            Navigator.pop(context);
+                          },
+                        );
+                        Widget deleteButton = TextButton(
+                          child: const Text("Delete"),
+                          onPressed: () async{
+                            //delete query
+                            BlocProvider.of<ListCubit>(context).deleteDataCubit(id: NOTE_ID);
+                            Navigator.pop(context);
+                          },
+                        );
+                        AlertDialog alert = AlertDialog(
+                          title: const Text("Do you want to delete this note ?"),
+                          actions: [
+                            cancelButton,
+                            deleteButton,
+                          ],
+                        );
+                        // show the dialog
+                        showDialog(context: context, builder: (BuildContext context) {
+                          return alert;
+                        });
+
                       },
                         child: Icon(Icons.delete, color: Colors.grey,))),
               ],
@@ -112,7 +147,7 @@ class _HomeScreenState extends State<HomeScreen> {
             ),
             Padding(
               padding: EdgeInsets.all(14.0),
-              child: Text(NOTE_DESCRIPTION,
+              child: SelectableText(NOTE_DESCRIPTION,
                 textAlign: TextAlign.justify,
                 style: TextStyle(fontSize: 14, color: Colors.black),
               ),
@@ -122,5 +157,15 @@ class _HomeScreenState extends State<HomeScreen> {
         ),
       ),
     );
+  }
+
+  String getCountWord(int count){
+    String word;
+    if(count>1){
+      word = "Notes";
+    }else{
+      word = "Note";
+    }
+    return word;
   }
 }
