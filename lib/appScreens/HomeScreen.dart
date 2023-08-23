@@ -88,10 +88,11 @@ class _HomeScreenState extends State<HomeScreen> {
               children: [
                 Expanded(
                   flex: 7,
-                  child: Center(
+                  child: Padding(
+                    padding: const EdgeInsets.only(left: 21),
                     child: SelectableText(
                       NOTE_TITLE,
-                      style: TextStyle(fontSize: 21, fontWeight: FontWeight.bold),
+                      style: const TextStyle(fontSize: 21, fontWeight: FontWeight.bold),
                     ),
                   ),
                 ),
@@ -102,7 +103,7 @@ class _HomeScreenState extends State<HomeScreen> {
                         Navigator.push(context, MaterialPageRoute(builder: (builder) =>
                             EditScreen(mID: NOTE_ID, mTitle: NOTE_TITLE, mDesc: NOTE_DESCRIPTION,)));
                       },
-                        child: Icon(Icons.edit, color: Colors.grey,))),
+                        child: const Icon(Icons.edit, color: Colors.grey,))),
                 Expanded(
                     flex: 1,
                     child: InkWell(

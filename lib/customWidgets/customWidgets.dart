@@ -6,6 +6,9 @@ class CustomWidgets{
 
   Widget customTextField({required FontWeight fontWeight, required TextEditingController ctrl, required String hint}){
     return TextField(
+      keyboardType: TextInputType.multiline,
+      minLines: 1,
+      maxLines: 6,
       controller: ctrl,
       style: TextStyle(fontSize: 17, fontWeight: fontWeight),
       decoration: InputDecoration(
