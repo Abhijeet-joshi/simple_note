@@ -48,7 +48,7 @@ class _AddScreenState extends State<AddScreen> {
                 const SizedBox(width: 10,),
                 Expanded(
                   flex: 5,
-                  child: CustomWidgets().customElevatedButton(btnText: "Save", btnClr: Colors.blue, voidCallback: () {
+                  child: CustomWidgets().customElevatedButton(btnText: "Save", btnClr: Colors.lightGreen, voidCallback: () {
                     if(titleCtrl.text.isEmpty || descCtrl.text.isEmpty){
                       Fluttertoast.showToast(
                           msg: "All Fields are Mandatory",

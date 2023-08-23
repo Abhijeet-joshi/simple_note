@@ -82,7 +82,7 @@ class _EditScreenState extends State<EditScreen> {
                   flex: 5,
                   child: CustomWidgets().customElevatedButton(
                       btnText: "Update",
-                      btnClr: Colors.blue,
+                      btnClr: Colors.lightGreen,
                       voidCallback: () {
                         if (titleCtrl.text.isEmpty || descCtrl.text.isEmpty) {
                           Fluttertoast.showToast(

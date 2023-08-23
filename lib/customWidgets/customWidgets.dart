@@ -21,6 +21,7 @@ class CustomWidgets{
   Widget customElevatedButton({required VoidCallback voidCallback, required String btnText, required Color btnClr}){
     return ElevatedButton(onPressed: voidCallback, style: ElevatedButton.styleFrom(
       backgroundColor: btnClr,
+      foregroundColor: Colors.white,
     ), child: Text(btnText));
   }
 
