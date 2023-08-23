@@ -14,6 +14,7 @@ class _HomeScreenState extends State<HomeScreen> {
 
   List<Map<String, dynamic>> notes = [];
 
+
   @override
   void initState() {
     // TODO: implement initState
@@ -147,7 +148,7 @@ class _HomeScreenState extends State<HomeScreen> {
               endIndent: 21,
             ),
             Padding(
-              padding: EdgeInsets.all(14.0),
+              padding: EdgeInsets.symmetric(horizontal: 21, vertical: 10),
               child: SelectableText(NOTE_DESCRIPTION,
                 textAlign: TextAlign.justify,
                 style: TextStyle(fontSize: 14, color: Colors.black),
